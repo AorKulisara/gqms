@@ -1,0 +1,47 @@
+﻿
+.txtAutoComplete{
+  /*แก้ Width และ font ของ TextBox */
+  width: 455px;
+  height: 25px;
+  color: #555;
+  background-color: #fff;
+  font-size: 14px;
+}
+ul[id^='ui-id-'] {
+    box-shadow:0 6px 12px rgba(0,0,0,0.175);
+}
+ul[id^='ui-id-'] li{
+    color:black;
+    border:none !important;
+    /*แก้ Width และ font ตาม TextBox */
+    width:100%;
+    word-wrap: break-word;
+    font-size: 12px;
+    margin:1px !important;
+}
+ul[id^='ui-id-'] li:nth-child(odd){
+    background-color:#F9F8F6;
+}
+ul[id^='ui-id-'] li:nth-child(even){
+    background-color:#FAFAF7;
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    color:#262626;
+    text-decoration:double;
+    background:#f5f5f5 !important;
+}
+
+.clearableText{
+  /*data:image/gif;base64    เป็นรูป x*/
+  background: #fff url(data:image/gif;base64,R0lGODlhBwAHAIAAAP///5KSkiH5BAAAAAAALAAAAAAHAAcAAAIMTICmsGrIXnLxuDMLADs=) no-repeat right -10px center;
+  border: 1px solid #999;
+       /*padding: 3px 18px 3px 4px; Use the same right padding (18) in jQ! 
+  border-radius: 3px;*/
+  transition: background 0.4s;
+}
+
