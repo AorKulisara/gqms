@@ -1,0 +1,540 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainPage.master.cs" Inherits="PTT.GQMS.USL.Web.Includes.MainPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatitble" content="IE=edge,Chrome=1" />
+    <title>PTT GQMS</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
+    <!-- Font Awesome Icons -->
+    <link href="../Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery 1.11.3 and 2.1.4 -->
+    <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+    <!--<script src="../Scripts/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>-->
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="../Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <!-- AdminLTE Template -->
+    <link href="../Content/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/custom-style.min.css" rel="stylesheet" type="text/css" />
+    <script src="../Scripts/app.min.js" type="text/javascript"></script>
+
+    <!-- MyTheme & Script-->
+    <link href="../Content/appStyle.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../Scripts/Utility.js"></script>
+    <script type="text/javascript" src="../Scripts/Project.js"></script>
+    <link href="../Content/AutoCompleteTheme.css" rel="stylesheet" type="text/css" />
+    <!-- Icon ระบบ -->
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+
+    <!--Jquery UI & Theme-->
+    <script type="text/javascript" src="../Scripts/jquery-ui.min.js"></script>
+    <link href="../Content/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+
+    <!--Datepicker Bootstrap-->
+    <link href="../Content/datepicker.css" rel="stylesheet" />
+    <script src="../Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="../Scripts/bootstrap-datepicker-thai.js" type="text/javascript"></script>
+    <script src="../Scripts/bootstrap-datepicker.th.js" type="text/javascript"></script>
+
+
+    <!-- iCheck -->
+    <link href="../Content/icheck_square/_all.css" rel="stylesheet"/>
+    <script src="../Scripts/icheck.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+ 
+        function LogOut() {
+            confirmed = ConfirmModal("Are you sure you want to sign out?");
+            if (confirmed) {
+                LoadSpin();
+                window.location.href = "../Logout";
+            }
+        }
+
+        function LoadSpin() {
+            var iconspin = ["circle-o-notch", "cog", "spinner", "refresh","connectdevelop","slack","yelp"];
+            $("html").attr("class", "box").prepend("<div class=\"overlay\"><i class=\"fa fa-" + iconspin[Math.floor(Math.random() * 6)] + " fa-spin fa-7x\"></i></div>")
+        }
+
+        function CloseSpin() {
+            $("html").removeAttr("class"); $("html > div[class=overlay]").remove();
+        }
+
+
+        function CheckPictureNotFound(url) {
+            var img = new Image();
+            img.src = url;
+            return img.height == 0;
+        }
+
+
+    </script>
+  
+    <style type="text/css">
+        .hidden-xs-for-logo {
+                display:block;float:left;height:50px;line-height:50px;
+                padding:0 15px;
+                color:white;
+                font-family:'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+                font-weight: 600;
+                font-size: 22px;
+            }
+        @media (max-width:1140px) {
+            .hidden-xs-for-logo {
+                display: none !important;
+            }
+        }
+
+        @media (max-width:800px) {
+            .logo {
+                display: none !important;
+            }      
+            .hidden-xs-for-logo {
+                display: none !important;
+            }     
+        }
+
+       @media (max-width:560px) {
+            .hidden-xs-for-logo {
+                display: none !important;
+            }
+        }
+ </style>
+
+ <!---------------------- Security ------------------------------------------->
+<script type="text/javascript" lang="javascript">
+function sURL(url) {
+    if (url.indexOf("?")>=0) {
+        return url + "&UID=<%= HttpContext.Current.Session["UID"] %>";
+    } else {
+        return url + "?UID=<%= HttpContext.Current.Session["UID"] %>";
+    }
+}
+
+function getQueryString(variable, query) {
+    if (query == null || query == undefined) query = window.location.search.substring(1);
+    query = unescape(query);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var j = vars[i].indexOf("=");
+        if (j>=0) {
+            var pname = vars[i].substring(0, j);
+            var pvalue = vars[i].substring(j+1);
+            if (pname == variable) {
+                return pvalue;
+            }
+        }
+    }
+    return '';
+}
+
+function getQS(variable, chkParent) {
+    var qs = getQueryString(variable);
+    if ((qs == '') && (chkParent == true) && (parent != null)) {
+        qs = getQueryString(variable, parent.location.search.substring(1));
+    }
+    return qs;
+}
+
+function checkUID()
+{
+    var uid = '<%= HttpContext.Current.Session["UID"] %>';      
+    var qs = getQS("UID", true);
+    if (uid == '' || uid != qs) {
+        window.location.href = "../noRight"; 
+    }
+}
+
+function GoMenu(url){   
+    window.location.href = sURL(url);
+    }
+
+function OpenMenu(url){   
+    window.open(url);
+}
+
+checkUID();
+
+
+</script>
+
+<!----------------------------------------------------------------->    
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="HeadStyle" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="sidebar-mini skin-intersol">
+
+    <script>
+    (function () {
+      if (Boolean(sessionStorage.getItem('sidebar-toggle-collapsed'))) {
+        var body = document.getElementsByTagName('body')[0];
+        body.className = body.className + ' sidebar-collapse';
+      }
+    })();
+  </script>
+
+
+
+
+
+    <form id="frm" runat="server">
+
+        <div class="wrapper">
+
+
+ 
+   <header class="main-header">
+
+
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top" role="navigation">
+          
+
+
+                    <span class="hidden-xs-for-logo">
+                        Gas Quality Management System</span>
+
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+
+                            <!-------------------------->
+ 
+                            <li id="Menu1" class="notifications-menu" style="border-left-style: solid; border-left-width: 1px; border-left-color: #666666">                              
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                                        <i class="fa fa-upload fa-lg"></i> Upload excel               
+                                    </a>
+                                    <ul class="dropdown-menu" style="width:100px;">
+                                        <li>
+                                        <ul class="menu">
+                                            <li id="Menu1-1"><a href="javascript:GoMenu('../Forms/UploadXLS');" style="border-bottom-color:black; border-bottom-width:3px;" ><i class='fa fa-circle-o'></i>BTU</a></li>
+                                            <li id="Menu1-2"><a href="javascript:GoMenu('../Forms/UploadH2S');" ><i class='fa fa-square-o'></i>SPOT H2S</a></li>
+                                            <li id="Menu1-3"><a href="javascript:GoMenu('../Forms/UploadHG');" ><i class='fa fa-square-o'></i>SPOT Hg</a></li>
+                                            <li id="Menu1-4"><a href="javascript:GoMenu('../Forms/UploadO2');" ><i class='fa fa-square-o'></i>SPOT O2</a></li>
+                                            <li id="Menu1-5"><a href="javascript:GoMenu('../Forms/UploadHC');" ><i class='fa fa-square-o'></i>H-C dew point</a></li>
+                                            <li id="Menu1-6"><a href="javascript:GoMenu('../Forms/UploadOFF');" ><i class='fa fa-square-o'></i>Offshore</a></li>
+                                        </ul>
+                                       </li>
+                                    </ul>
+                            </li>
+                           <!-------------------------->
+                           <%-- Edit by Turk 11/04/2562 --> Memu data verification --%>
+                           <%--<li id="Menu2" class="notifications-menu" style="border-left-style: solid; border-left-width: 1px; border-left-color: #666666 ">                             
+                                    <a href="javascript:GoMenu('../Forms/Verify');" class="dropdown-toggle" >
+                                        <i class="fa fa-pencil fa-lg"></i> Data verification               
+                                    </a>
+                            </li>--%>
+                            <li id="Menu2" class="notifications-menu" style="border-left-style: solid; border-left-width: 1px; border-left-color: #666666">                              
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                                        <i class="fa fa-pencil fa-lg"></i> Data verification               
+                                    </a>
+                                    <ul class="dropdown-menu" style="width:100px;">
+                                        <li>
+                                        <ul class="menu">
+                                            <li id="Menu2-1"><a href="javascript:GoMenu('../Forms/Verify');" style="border-bottom-color:black; border-bottom-width:3px;"><i class='fa fa-circle-o'></i>Onshore</a></li>
+                                            <li id="Menu2-2"><a href="javascript:GoMenu('../Forms/VerifyOFF');" ><i class='fa fa-square-o'></i>Offshore</a></li>
+                                        </ul>
+                                       </li>
+                                    </ul>
+                            </li>
+
+                          <!-------------------------->
+                           <li id="Menu3" class="notifications-menu" style="border-left-style: solid; border-left-width: 1px; border-left-color: #666666">                              
+                                    <a href="#" class="dropdown-toggle"  data-toggle="dropdown" >
+                                        <i class="fa fa-file-text fa-lg"></i> Reports               
+                                    </a>
+                                    <ul class="dropdown-menu" style="width:330px;">
+                                        <li>
+                                        <ul class="menu">
+                                            <li id="Menu3-1"><a href="javascript:GoMenu('../Reports/rptMonthly');" ><i class='fa fa-circle-o'></i>Onshore Monthly Report</a></li>
+                                            <li id="Menu3-5"><a href="javascript:GoMenu('../Reports/rptON');" ><i class='fa fa-circle-o'></i>Onshore Summary</a></li>
+                                            <li id="Menu3-2"><a href="javascript:GoMenu('../Reports/rptCompare');" ><i class='fa fa-circle-o'></i>Onshore Site Compare Report</a></li>
+                                            <li id="Menu3-4"><a href="javascript:GoMenu('../Reports/TemplateList');" style="border-bottom-color:black; border-bottom-width:3px;"><i class='fa fa-circle-o'></i>Onshore Site Template</a></li>
+
+                                            <li id="Menu3-9"><a href="javascript:GoMenu('../Reports/rptSPOT');" ><i class='fa fa-circle-o'></i>Onshore Contaminate Report</a></li> 
+                                            <li id="Menu3-10"><a href="javascript:GoMenu('../Reports/TemplateListSPOT');" style="border-bottom-color:black; border-bottom-width:3px;"><i class='fa fa-circle-o'></i>Onshore Contaminate Sampling Point Template</a></li>
+
+                                            <li id="Menu3-6"><a href="javascript:GoMenu('../Reports/rptOFF');" ><i class='fa fa-square-o'></i>Offshore Summary</a></li>                                          
+                                            <li id="Menu3-7"><a href="javascript:GoMenu('../Reports/rptCompareOFF');" ><i class='fa fa-square-o'></i>Offshore Site Compare Report</a></li>
+                                            <li id="Menu3-8"><a href="javascript:GoMenu('../Reports/TemplateListOFF');" ><i class='fa fa-square-o'></i>Offshore Site Template</a></li>
+                                          
+                                        </ul>
+                                       </li>
+                                    </ul>
+                            </li>
+
+                          <!-------------------------->
+                           <li id="Menu4" class="notifications-menu" style="border-left-style: solid; border-left-width: 1px; border-left-color: #666666">                             
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                                        <i class="fa fa-database fa-lg"></i> Master data               
+                                    </a>
+                                    <ul class="dropdown-menu" style="width:220px;">
+                                        <li>
+                                        <ul class="menu">
+                                            <li id="Menu4-1"><a href="javascript:GoMenu('../Master/MngSite');" ><i class='fa fa-circle-o'></i>Onshore Site Management</a></li>
+                                            <li id="Menu4-7"><a href="javascript:GoMenu('../Master/MngRegion');" ><i class='fa fa-circle-o'></i>Region Location</a></li>
+                                            <li id="Menu4-8"><a href="javascript:GoMenu('../Master/MngAnalysis');" ><i class='fa fa-circle-o'></i>Analysis Method</a></li>
+                                            
+                                            <li id="Menu4-3"><a href="javascript:GoMenu('../Master/MngMapping');" ><i class='fa fa-circle-o'></i>Tag Mapping</a></li>
+                                            <li id="Menu4-4"><a href="javascript:GoMenu('../Master/MngMailTemplate');" ><i class='fa fa-circle-o'></i>Email Template</a></li>
+                                            <li id="Menu4-5"><a href="javascript:GoMenu('../Master/MngTransfer');" style="border-bottom-color:black; border-bottom-width:3px;"><i class='fa fa-circle-o'></i>Transfer Data</a></li>
+
+                                            <li id="Menu4-2"><a href="javascript:GoMenu('../Master/MngSiteOFF');" ><i class='fa fa-square-o'></i>Offshore Site Management</a></li>
+                                            <li id="Menu4-6"><a href="javascript:GoMenu('../Master/MngSPOT');" style="border-bottom-color:black; border-bottom-width:3px;" ><i class='fa fa-square-o'></i>SPOT Sampling Point</a></li>
+                                           
+                                              <%-- Add  03/07/2023 --> customer --%>
+                                            <li id="Menu4-9"><a href="javascript:GoMenu('../Master/MngCustomer');"><i class='fa fa-table'></i>Customer Data (GIS)</a></li>
+                                         
+
+                                        </ul>
+                                       </li>
+                                    </ul>
+                            </li>
+
+                           <!-------------------------->
+                           <li id="Menu5" class="notifications-menu" style="border-left-style: solid; border-left-width: 1px; border-left-color: #666666">                               
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                                        <i class="fa fa-gears fa-lg"></i> Security               
+                                    </a>
+                                    <ul class="dropdown-menu" style="width:100px;">
+                                        <li>
+                                        <ul class="menu">
+                                            <li id="Menu5-1"><a href="javascript:GoMenu('../Settings/MngRoleList');" ><i class='fa fa-circle-o'></i>Role management</a></li>
+                                            <li id="Menu5-2"><a href="javascript:GoMenu('../Settings/MngUserList');" ><i class='fa fa-circle-o'></i>User management</a></li>
+                                            <li id="Menu5-3"><a href="javascript:GoMenu('../Settings/EventLog');" ><i class='fa fa-circle-o'></i>Event logs</a></li>
+                                            <li id="Menu5-4"><a href="javascript:GoMenu('../Settings/ExceptionLog');" style="border-bottom-color:black; border-bottom-width:3px;"><i class='fa fa-circle-o'></i>Exception logs</a></li>
+                                            <%-- Add  11/04/2562 --> Changed logs --%>
+                                            <li id="Menu5-5"><a href="javascript:GoMenu('../Settings/ChangeLog');" style="border-bottom-color:black; border-bottom-width:3px;"><i class='fa fa-square-o'></i>Changed logs</a></li>
+                                           
+                                            <li id="Menu5-6"><a href="javascript:OpenMenu('../dat/Manual/UserManual.pdf');" ><i class='fa fa-square-o'></i>User Manual</a></li>
+                                            <li id="Menu5-7"><a href="javascript:OpenMenu('../dat/Manual/Training.pdf');" ><i class='fa fa-square-o'></i>Training</a></li>
+                                        
+                      
+
+                                        </ul>
+                                       </li>
+                                    </ul>
+                            </li>
+
+                            <!-------------------------->
+
+                            <%          
+                                String pic, name;
+                                if (HttpContext.Current.Session["AVATAR_ICON"] + "" == "")
+                                {
+                                    pic = "../dat/Avatar/default.png";
+                                    name = "";
+                                }
+                                else
+                                {
+                                    pic = HttpContext.Current.Session["AVATAR_ICON"] + "";
+                                    name = HttpContext.Current.Session["USER_DESC"] + " ";
+                                    name += (HttpContext.Current.Session["POSITION_NAME"] + "" != "" ? "<br>(" + HttpContext.Current.Session["POSITION_NAME"] + ")" : "");
+                                }
+
+                            %>
+                            <!-- User Account: style can be found in dropdown.less -->
+
+                            <li class="user notifications-menu" style="border-left-style: solid; border-left-width: 1px; border-left-color: #666666">   
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="<%=pic%>" class="user-image" alt="User Image" id="UserImage" />
+                                    <span style="margin-top: -3px; float: right;"><%=name%></span>                                   
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <ul class="menu">
+                                            <li>
+                                                <a href="#" modal-confirm onclick="LogOut();">
+                                                    <i class="fa fa-sign-out text-red"></i>Sign out
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <%=HttpContext.Current.Session["LAST_LOGIN"] %> 
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- space -->
+                            <li class="user notifications-menu">&nbsp;&nbsp;&nbsp;&nbsp;
+                            </li>
+                        </ul>
+                    </div>
+               
+          
+                         
+                     </nav>
+</header>
+<div>
+</div>
+
+ 
+            <!-- Content Wrapper. Contains page content -->
+             <div class="content-wrapper">         
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+
+                </asp:ContentPlaceHolder>
+
+            </div>
+            <asp:ContentPlaceHolder ID="FootContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <!-- /.content-wrapper -->
+        </div>
+        <!-- ./wrapper -->
+    </form>
+
+
+    <div class="modal fade" id="MsgBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" id="MsgBox-Close" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="msgHeadLabel">
+                        <li class="fa fa-info-circle fa-lg"></li>
+                        &nbsp;&nbsp;Warning Message</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p id="MsgDetail">Msg Alert.</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="Msg-OK" class="btn btn-sametogetherproject" data-dismiss="modal">OK</button>
+                    <a id="Msg-Cancel" class="btn btn-sametogetherproject btn-ok" data-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        /*----------  เช็คไฟล์รูปว่ามีไหม ---------------*/
+        if (CheckPictureNotFound($("#UserImage").attr("src"))) {
+            $("#UserImage").attr("src", "../dat/Avatar/default.png");
+        }
+        $(function () {
+            $(".owl-item > .item > img").each(function () {
+                if (CheckPictureNotFound($(this).attr("src"))) {
+                    $(this).attr("src", "../Images/no_image.jpg");
+                }
+            });
+        });
+
+
+        /*------------------------------------------*/
+        var checkconfirm = false;
+        var checkalert = false;
+        var DoFuncAt = "";
+        $(document).ready(function () {
+            $("[modal-confirm]").click(function () {
+                var DoAction = $(this).attr("onclick");
+                $("#Msg-OK").attr("onclick", DoAction);
+                $("#Msg-Cancel").css("display", "inline-block");
+                if (checkalert) {
+                    $("#Msg-Cancel").css("display", "none");
+                    $("#Msg-OK").removeAttr("onclick");
+                    checkalert = false;
+                }
+                checkconfirm = true;
+            }).attr({ "data-target": "#ConfirmBox", "data-toggle": "modal" });
+
+            $("#MsgBox,#Msg-Cancel,#Msg-Close").click(function () {
+                checkconfirm = false;
+            });
+
+        });
+
+
+        function ConfirmModal(a) {
+            checkalert = false;
+            if (checkconfirm) {
+                return true;
+            } else {
+                //$("#ConfirmDetail").html(a);
+                var str = a
+                var res = str.replace(/\r\n/g, "</br>");
+                $("#MsgBox").modal("show");
+                $("#MsgDetail").html(res);
+
+                return false;
+            }
+        }
+        function AlertModal(a) {
+            //-- aor edit 08/05/2017
+            MsgModal(a);
+        }
+
+        function MsgModal(a) {
+            //-- aor edit 16/01/2017
+            var str = a
+            var res = str.replace(/\r\n/g, "</br>");
+            $("#MsgBox").modal("show");
+            $("#MsgDetail").html(res);
+            $("#Msg-OK").removeAttr("onclick");
+            $("#Msg-Cancel").css("display", "none");
+            checkalert = true;
+        }
+
+        //-- aor edit 16/01/2017
+        function MsgModalgoPage(a, GoPage) {
+            var str = a
+            var res = str.replace(/\r\n/g, "</br>");
+            $("#MsgBox").modal("show");
+            $("#MsgDetail").html(res);
+            $("#Msg-OK").removeAttr("onclick");
+            $("#Msg-Cancel").css("display", "none");
+            $('#MsgBox').on('hidden.bs.modal', function (e) {
+                window.location.href = GoPage;
+            })
+        }
+
+        //-- aor edit 09/05/2017
+        function MsgModalclosePage(a) {
+            var str = a
+            var res = str.replace(/\r\n/g, "</br>");
+            $("#MsgBox").modal("show");
+            $("#MsgDetail").html(res);
+            $("#Msg-OK").removeAttr("onclick");
+            $("#Msg-Cancel").css("display", "none");
+            $('#MsgBox').on('hidden.bs.modal', function (e) {
+                window.close();
+            })
+        }
+
+
+
+
+    </script>
+    <style type="text/css">
+        .fade {
+            opacity: 0;
+            transition: opacity 0.1s linear !important;
+        }
+
+        .modal.fade .modal-dialog {
+            /*transform: translate(0,25%) !important;*/
+            transform: translate(0,50px) !important;
+        }
+    </style>
+
+
+            <script type="text/javascript">
+                <% =MenuAction %>
+            </script>
+
+
+   <asp:ContentPlaceHolder ID="FootScript" runat="server">
+        <!--#Include file="../Includes/JSFooter.html"-->
+    </asp:ContentPlaceHolder>
+</body>
+
+</html>

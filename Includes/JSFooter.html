@@ -1,0 +1,7 @@
+<script   type="text/javascript">
+    <% if(Msg+"" != ""){
+        HttpContext.Current.Response.Write("MsgModal('" + Msg.Replace("\r\n", " ") + "');");
+}else if(PageAction+"" != ""){
+    HttpContext.Current.Response.Write(PageAction);
+}%>
+</script>
